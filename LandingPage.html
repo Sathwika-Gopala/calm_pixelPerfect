@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calm Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif; /* avenir font is paid, using similar as that*/
+      background-color: #f9f9f9;
+      color: #1c2b4a;
+    }
+    .hero {
+      background: url('https://www.calm.com/_next/image?url=%2F_n%2Fimages%2Fjasper-lake.webp&w=1920&q=75') no-repeat center center/cover;
+      height: 45vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-image: linear-gradient(rgb(23, 98, 147) 0%, rgba(23, 98, 147, 0.337) 71%, rgba(23, 98, 147, 0) 100%);
+    }
+    .navbar img {
+      width: 107px;
+      height: 60px;
+      margin-left: -1%;
+      margin-right: 1.5%;
+    }
+    .nav-links-start {
+      display: flex;
+      gap: 24px;
+      align-items: start;
+      margin-left: -35%;
+    }
+    .nav-links-end {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links-start a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      color: white;
+    }
+    .nav-links-end a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      color: white;
+    }
+    .fadedWhite {
+        display: flex;
+        padding: 40px 40px;
+        background-image: linear-gradient(
+        rgba(252, 252, 252, 0) 0%,
+        rgba(234, 242, 248, 0.3) 30%,
+        rgb(255, 255, 255) 100%
+        );
+        margin-top: 10%;
+        margin-bottom: -15%;
+}
+    .hero-text {
+      text-align: center;
+      padding: 40px;
+    }
+    .hero-text h1 {
+      font-size: 3em;
+      font-weight: 700;
+      color: rgb(26, 62, 111);
+      margin-top: 17.3%; 
+      font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+      
+    }
+    .hero-text p {
+      margin-top: -1%;
+      margin-bottom: 2.5%;
+      font-size: 1.2em;
+      color: #444;
+      font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .btn {
+      padding: 14px 17.7778px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 32px;
+      cursor: pointer;
+      background-image: linear-gradient(rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%);
+      width: 335px;
+      max-width: 335px;
+      min-height: 48px;
+      min-width: 48px;
+      height: 57.6px;
+    }
+    .btn-primary {
+      background: linear-gradient(to bottom, rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%);
+      color: white;
+      font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 700;
+    }
+    .btn-secondary {
+      background: white;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    .btn-tertiary {
+      background: white;
+      color: #333;
+      border: 1px solid #ddd;
+      width: 200px;
+      font-family: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+
+    /* Chatbot styles */
+    .chatbot-icon {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      background-image: linear-gradient(rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .chatbot-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    .chatbot-box header {
+      padding: 12px;
+      font-weight: bold;
+      background-image: linear-gradient(rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%);
+      color: white;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .chatbot-messages {
+      padding: 12px;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 0.9em;
+    }
+    .chatbot-input {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+    .chatbot-input input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid rgb(23, 98, 147);
+      /* outline: none; */
+
+    }
+    .chatbot-input button {
+      background-image: linear-gradient(rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .chat-start{
+        padding: 6px;
+        background-color: rgba(164, 163, 238, 0.607) ;
+        border-radius: 8px 8px 8px 0px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    /* Close button style */
+.chatbot-close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -2px;
+  margin-right: 6px;
+}
+.chatbot-close:hover {
+  font-size: x-large
+}
+
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="navbar">
+      <img src="https://1000logos.net/wp-content/uploads/2024/08/Calm-Logo-768x432.png" alt="logo" />
+      <div class="nav-links-start">
+        <a href="#">Sleep</a>
+        <a href="#">Stress & Anxiety</a>
+        <a href="#">Mindfulness</a>
+        </div>
+        <div class = "nav-links-end">
+        <a href="#">Screening</a>
+        <a href="#">Calm Health</a>
+        <a href="#">Log In</a>
+        <button class="btn btn-tertiary">Try Calm for Free</button>
+      </div>
+    </div>
+    <div class="fadedWhite"></div>
+    <div class="hero-text">
+      <h1>Calm your mind. Change your life.</h1>
+      <p>The #1 app for sleep, meditation and relaxation</p>
+      <div class="buttons">
+        <button class="btn btn-primary">Try Calm for Free</button>
+        <button class="btn btn-secondary">Already have an account?</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="chatbot-icon" onclick="toggleChatbot()">💬</div>
+  <div class="chatbot-box" id="chatbotBox">
+    
+        <header>
+            CalmBot
+            <span class="chatbot-close" onclick="closeChatbot()">×</span>
+          </header>
+    <div class="chatbot-messages" id="chatlog">
+      <div class="chat-start">👋 Hi! I'm here to help you relax. choose one from "stress", "sleep", "mindfulness".</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatlog = document.getElementById('chatlog');
+    const input = document.getElementById('chatInput');
+    let lastTopic = null;
+  
+    function closeChatbot() {
+      document.getElementById('chatbotBox').style.display = 'none';
+    }
+  
+    function toggleChatbot() {
+      const bot = document.getElementById('chatbotBox');
+      bot.style.display = bot.style.display === 'flex' ? 'none' : 'flex';
+    }
+  
+    function sendMessage() {
+      const msg = input.value.trim();
+      if (!msg) return;
+  
+      appendUserMessage(msg);
+      input.value = '';
+      generateBotResponse(msg.toLowerCase());
+    }
+  
+    function appendUserMessage(message) {
+      const userMsg = document.createElement('div');
+      userMsg.textContent = 'You: ' + message;
+      chatlog.appendChild(userMsg);
+    }
+  
+    function appendBotMessage(message, isFinal = true) {
+      const botMsg = document.createElement('div');
+      botMsg.className = "chat-start";
+      chatlog.appendChild(botMsg);
+        botMsg.textContent = message;
+    }
+  
+    function generateBotResponse(msg) {
+  msg = msg.toLowerCase();
+
+  if (msg.includes("stress")) {
+    lastTopic = "stress";
+    appendBotMessage("🧘‍♀️ Feeling stressed? Let's bring in some calm. Would you like to try a breathing exercise or listen to calming music?", false);
+    showSuggestions(["Breathing Exercise", "Calming Music", "Back to Main"]);
+  }
+
+  else if (msg.includes("sleep")) {
+    lastTopic = "sleep";
+    appendBotMessage("😴 Struggling to fall asleep? I can guide you with a soothing sleep story or some gentle music. What would you like?", false);
+    showSuggestions(["Sleep Story", "Sleep Music", "Back to Main"]);
+  }
+
+  else if (msg.includes("music") && !msg.includes("sleep") && !msg.includes("focus")) {
+    lastTopic = "music";
+    appendBotMessage("🎵 Music can lift your mood or calm your mind. Would you like focus music or sleep music?", false);
+    showSuggestions(["Focus Music", "Sleep Music", "Back to Main"]);
+  }
+
+  else if (msg.includes("breathing")) {
+    appendBotMessage("🌬️ Let’s do a quick box breathing exercise: Inhale for 4 seconds, hold for 4, exhale for 4, and hold again for 4. Repeat 4 times to calm your nervous system. Feeling better already? 💙", false);
+    showSuggestions(["Calming Music", "Sleep Story", "Back to Main"]);
+  }
+
+  else if (msg.includes("sleep story")) {
+    appendBotMessage("📖 Picture this: You're in a warm cabin deep in the forest, rain gently tapping on the roof. You're wrapped in a cozy blanket by the fireplace. Each breath takes you deeper into calm. Ready for peaceful sleep? 🌲🌧️", false);
+    showSuggestions(["Sleep Music", "Breathing Exercise", "Back to Main"]);
+  }
+
+  else if (msg.includes("calming music") || msg.includes("sleep music")) {
+    appendBotMessage("🎶 Let me play something soft and peaceful – ambient tones, ocean waves, or gentle piano. Let the music wash over you as you drift into stillness. 🌙💤", false);
+    showSuggestions(["Sleep Story", "Breathing Exercise", "Back to Main"]);
+  }
+
+  else if (msg.includes("focus music")) {
+    appendBotMessage("🎧 Tuning into lo-fi and deep-focus beats to help you stay in the zone. Let’s get things done, one relaxed breath at a time. 🚀", false);
+    showSuggestions(["Calming Music", "Breathing Exercise", "Back to Main"]);
+  }
+
+  else {
+    appendBotMessage("🌟 I'm here to help you feel better. Choose a path to relax:", false);
+    showSuggestions(["Stress Relief", "Sleep Help", "Focus Music"]);
+  }
+
+  chatlog.scrollTop = chatlog.scrollHeight;
+}
+
+  
+    function showSuggestions(options) {
+      const suggestionBox = document.createElement('div');
+      suggestionBox.style.display = 'flex';
+      suggestionBox.style.gap = '8px';
+      suggestionBox.style.margin = '10px 0';
+      suggestionBox.style.flexWrap = 'wrap';
+  
+      options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.style.width = '120px';
+        btn.style.padding = '6px 12px';
+        btn.style.justifyContent = 'center';
+        btn.style.alignItems = 'center';
+        btn.style.marginRight = '50px';
+        btn.style.borderRadius = '12px';
+        btn.style.border = '1px solid #ccc';
+        btn.style.background = 'linear-gradient(rgb(36, 119, 170) 0%, rgb(100, 97, 224) 100%)';
+        btn.style.cursor = 'pointer';
+        btn.style.color = 'white';
+        btn.onclick = () => {
+          appendUserMessage(option);
+          chatlog.removeChild(suggestionBox);
+          generateBotResponse(option.toLowerCase());
+        };
+        suggestionBox.appendChild(btn);
+      });
+  
+      chatlog.appendChild(suggestionBox);
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+  
+    // Allow Enter key to send
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") sendMessage();
+    });
+  </script>
+  
+</body>
+</html>
